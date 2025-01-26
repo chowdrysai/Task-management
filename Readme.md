@@ -15,11 +15,11 @@ Ensure you have the following installed on your system:
 
 - **Node.js**: >= 18.x
 - **npm** (or **yarn**) for package management
-- A database system if the project uses - postreSql
+- **PostgreSQL** for database management
 
 ---
 
-## Installation
+## GitHub Clone
 
 1. **Clone the repository**:
 
@@ -32,7 +32,7 @@ Ensure you have the following installed on your system:
    
 ---
 
-##  Setup
+##  Installation and Setup
 
 1. **Environment Variables:**
 
@@ -74,10 +74,10 @@ Ensure you have the following installed on your system:
 - Payload:
      ```bash
      {
-  "title": "Sample Task",
-  "description": "This is a sample task",
-  "due_date": "2025-01-30"
-}
+      "title": "Sample Task",
+      "description": "This is a sample task",
+      "due_date": "2025-01-30"
+     }
 
 2. **2. GET /tasks**:
     
@@ -95,7 +95,7 @@ Ensure you have the following installed on your system:
             "created_at": "2025-01-20T12:00:00Z",
             "updated_at": "2025-01-20T12:00:00Z"
           }
-    ]
+     ]
 
 3. **PUT /tasks/{id}**:
     
@@ -119,14 +119,17 @@ Ensure you have the following installed on your system:
     }
 5. **DELETE /tasks/{id}**:
 - Description: Delete a task by its ID.
-- Response:
+- Sample Response:
     ```bash
     {
-      "message": "Task deleted successfully",
-      "task": {
-        "id": 1,
-        "title": "Sample Task"
-      }
+       "id": 1,
+       "title": "Sample Task",
+       "description": "This is a sample task",
+       "due_date": "2025-01-30",
+       "status": "Pending",
+       "completed_at": null,
+       "created_at": "2025-01-20T12:00:00Z",
+       "updated_at": "2025-01-20T12:00:00Z"
     }
 
 6. **GET /tasks/search**:
