@@ -40,13 +40,27 @@ const updateTask = async (req, res) => {
       return res.status(404).json({ error: "Task not found" });
     }
 
-    const previousValues = task.toJSON();
+    const previousValues = {};
+    const updatedFields = {};
 
-    await task.update({
-      title: title || task.title,
-      description: description || task.description,
-      due_date: due_date || task.due_date,
-    });
+    // Compare each field and store the previous value if it is being updated
+    if (title && title !== task.title) {
+      previousValues.title = task.title;
+      updatedFields.title = title;
+    }
+
+    if (description && description !== task.description) {
+      previousValues.description = task.description;
+      updatedFields.description = description;
+    }
+
+    if (due_date && due_date !== task.due_date) {
+      previousValues.due_date = task.due_date;
+      updatedFields.due_date = due_date;
+    }
+
+    console.log(previousValues);
+    await task.update(updatedFields);
 
     res.status(200).json({ updated: task, previous: previousValues });
   } catch (error) {
@@ -95,8 +109,7 @@ const deleteTask = async (req, res) => {
 
 // Search tasks
 const searchTasks = async (req, res) => {
-  const{ title=null, description = null} = req.body;
-  const keyword = title || description;
+  const{ keyword } = req.query;
   try {
     const tasks = await Task.findAll({
       where: {
