@@ -1,0 +1,28 @@
+service: Task
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  memorySize: 2048
+  stage: dev
+  timeout: 15
+  region: ap-south-1
+  lambdaHashingVersion: 20201221
+  rollbackConfiguration:
+    RollbackTriggers: []
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - httpApi:
+          method: ANY
+          path: /{proxy+}
+    environment:
+      DB_USER: postgres
+      DB_PASSWORD: Saikumar45
+      DB_HOST: database-1.c30wc4giwsyo.ap-south-1.rds.amazonaws.com
+      DB_NAME: demo
+      DB_PORT: 5432
+
